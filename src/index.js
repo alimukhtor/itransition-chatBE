@@ -35,7 +35,7 @@ const io = new Server(httpServer,  {
     transports:['websocket'],
     cors:{
       cors: {
-        origin: "http://localhost:3000"
+        origin: process.env.FE_LOCAL_URL
       }
     }});
 
