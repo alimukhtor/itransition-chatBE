@@ -31,13 +31,7 @@ app.get('/online-users', (req, res) => {
     res.send({ onlineUsers })
 })
 const httpServer = createServer(app);
-const io = new Server(httpServer,  {
-    transports:['websocket'],
-    cors:{
-      cors: {
-        origin: process.env.FE_LOCAL_URL
-      }
-    }});
+const io = new Server(httpServer);
 
 io.on("connection", (socket) => {
     console.log(socket.id)
