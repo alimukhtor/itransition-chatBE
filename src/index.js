@@ -31,7 +31,13 @@ app.get('/online-users', (req, res) => {
     res.send({ onlineUsers })
 })
 const httpServer = createServer(app);
-const io = new Server(httpServer, { /* options */ });
+const io = new Server(httpServer,  {
+    transports:['polling'],
+    cors:{
+      cors: {
+        origin: "http://localhost:3000"
+      }
+    }});
 
 io.on("connection", (socket) => {
     console.log(socket.id)
