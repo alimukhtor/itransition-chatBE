@@ -32,7 +32,7 @@ app.get('/online-users', (req, res) => {
 })
 const httpServer = createServer(app);
 const io = new Server(httpServer,  {
-    transports:['polling'],
+    transports:['websocket'],
     cors:{
       cors: {
         origin: "http://localhost:3000"
