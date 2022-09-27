@@ -11,7 +11,14 @@ app.use(cors());
 app.use(express.json());
 const port = process.env.PORT || 3030
 const httpServer = createServer(app);
-const io = new Server(httpServer);
+const io = new Server(httpServer, {
+    transports:['websocket'],
+    cors:{
+      cors: {
+        origin: "https://itransition-chat.vercel.app/"
+      }
+    }
+  });
 // const whiteList = ["http://localhost:3000", "https://itransition-chat.vercel.app/"];
 
 // const corsOptions = {
