@@ -9,7 +9,7 @@ let onlineUsers = []
 const app = express();
 app.use(cors());
 app.use(express.json());
-const port = 3030
+const port = process.env.PORT | 3030
 const whiteList = ["http://localhost:3000", "https://itransition-chat.vercel.app/"];
 
 const corsOptions = {
@@ -52,6 +52,7 @@ io.on("connection", (socket) => {
 
     socket.on("sendmessage", async({ message, room }) => {
         const newMessage = new MsgModel({ 
+            title:message.title,
             text:message.text,
             sender: message.sender,
             socketId:message.socketId
