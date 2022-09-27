@@ -5,10 +5,12 @@ import cors from "cors";
 import mongoose from "mongoose";
 import MsgModel from './db/schema.js'
 import listEndpoints from 'express-list-endpoints'
-
-const port = process.env | 3030
-const {MONGO_URL} = process.env
-const whiteList = [process.env.FE_LOCAL_URL, process.env.FE_REMOTE_URL];
+let onlineUsers = []
+const app = express();
+app.use(cors());
+app.use(express.json());
+const port = 3030
+const whiteList = ["http://localhost:3000", "https://itransition-chat.vercel.app/"];
 
 const corsOptions = {
     origin: function (origin, next) {
@@ -22,10 +24,7 @@ const corsOptions = {
 };
 
 
-let onlineUsers = []
-const app = express();
-app.use(cors());
-app.use(express.json());
+
 
 app.get('/online-users', (req, res) => {
     res.send({ onlineUsers })
@@ -77,7 +76,7 @@ io.on("connection", (socket) => {
 // });
 
 // // *********************** DB CONNECTION ****************
-mongoose.connect(MONGO_URL);
+mongoose.connect("mongodb+srv://alimukhtor:alimukhtor@cluster0.9wscl.mongodb.net/itransition-chat-app?retryWrites=true&w=majority");
 mongoose.connection.on("connected", () => {
   console.log("Connected to MongoDB!");
   httpServer.listen(port, () => {
