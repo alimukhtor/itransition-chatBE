@@ -10,18 +10,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const port = process.env.PORT | 3030
-const whiteList = ["http://localhost:3000", "https://itransition-chat.vercel.app/"];
+const httpServer = createServer(app);
+const io = new Server(httpServer);
+// const whiteList = ["http://localhost:3000", "https://itransition-chat.vercel.app/"];
 
-const corsOptions = {
-    origin: function (origin, next) {
-        console.log(origin);
-        if (!origin || whiteList.indexOf(origin) !== -1) {
-            next(null, true);
-        } else {
-            next(new Error("Not allowed by CORS"));
-        }
-    },
-};
+// const corsOptions = {
+//     origin: function (origin, next) {
+//         console.log(origin);
+//         if (!origin || whiteList.indexOf(origin) !== -1) {
+//             next(null, true);
+//         } else {
+//             next(new Error("Not allowed by CORS"));
+//         }
+//     },
+// };
 
 
 
@@ -29,8 +31,7 @@ const corsOptions = {
 app.get('/online-users', (req, res) => {
     res.send({ onlineUsers })
 })
-const httpServer = createServer(app);
-const io = new Server(httpServer);
+
 
 io.on("connection", (socket) => {
     console.log(socket.id)
