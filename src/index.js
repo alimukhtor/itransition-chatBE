@@ -35,7 +35,7 @@ const io = new Server(httpServer,  {
     transports:['polling'],
     cors:{
       cors: {
-        origin: "https://itransition-chat.vercel.app/"
+        origin: "http://localhost:3000"
       }
     }});
 
