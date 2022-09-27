@@ -9,7 +9,7 @@ let onlineUsers = []
 const app = express();
 app.use(cors());
 app.use(express.json());
-const port = process.env.PORT | 3030
+const port = process.env.PORT || 3030
 const httpServer = createServer(app);
 const io = new Server(httpServer);
 // const whiteList = ["http://localhost:3000", "https://itransition-chat.vercel.app/"];
@@ -81,7 +81,8 @@ io.on("connection", (socket) => {
 mongoose.connect("mongodb+srv://alimukhtor:alimukhtor@cluster0.9wscl.mongodb.net/itransition-chat-app?retryWrites=true&w=majority");
 mongoose.connection.on("connected", () => {
   console.log("Connected to MongoDB!");
-  httpServer.listen(port, () => {
+  const port_number = httpServer.listen(port || 3030);
+  app.listen(port_number,  () => {
     console.table(listEndpoints(httpServer));
     console.log(`Server running on port ${port}`);
   });
